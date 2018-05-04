@@ -41,40 +41,6 @@ let config = merge(common, {
     historyApiFallback: true,
     quiet: true,
     before: mockRouter
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: [
-          "style-loader",
-          'css-loader'
-        ]
-      },
-      {
-        test: /\.vue$/,
-        use: {
-          loader: 'vue-loader',
-          options: {
-            loaders: {
-              js: [
-                {
-                  loader: 'babel-loader',
-                  options: {
-                    presets: ['@babel/preset-env'],
-                    plugins: ['@babel/plugin-syntax-dynamic-import']
-                  }
-                }
-              ],
-              css: [
-                "style-loader",
-                'css-loader'
-              ]
-            }
-          }
-        }
-      }
-    ]
   }
 })
 

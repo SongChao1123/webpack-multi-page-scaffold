@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const webpack = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const isDevMode = process.env.NODE_ENV !== 'production'
 
 let srcRoot = path.join(process.cwd(), './src')
 let pageRoot = path.join(srcRoot, './page')
@@ -32,15 +34,6 @@ module.exports = {
       vue: 'vue/dist/vue.js'
     }
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: 'common'
-    },
-    runtimeChunk: {
-      name: 'runtime'
-    }
-  },
   module: {
     rules: [
       {
@@ -53,6 +46,13 @@ module.exports = {
         test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
           'file-loader'
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          isDevMode ? "style-loader": MiniCssExtractPlugin.loader,
+          'css-loader'
         ]
       },
       {
